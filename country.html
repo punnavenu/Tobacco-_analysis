@@ -1,0 +1,79 @@
+<html>
+<head>
+<script src="/home/punna/Desktop/MAIN_PROJECT/sourceCode/jquery-3.2.1.js"></script>
+<script src="https://code.highcharts.com/maps/highmaps.js"></script>
+<script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/mapdata/custom/world.js"></script>
+
+
+
+<style>
+#container {
+    height: 720px; 
+    min-width: 400px; 
+    max-width: 1500px; 
+    margin: 0 auto; 
+}
+.loading {
+    margin-top: 10em;
+    text-align: center;
+    color:blue;
+}
+</style>
+<script>
+var myList;
+$.getJSON('femaleconsumption.json')
+.done(function (data) {
+myList = data;
+console.log(data);
+Highcharts.mapChart('container', {
+    chart: {
+        map: 'custom/world'
+    },
+
+    title: {
+        text: 'FEMALE DEATHS DUE TO TOBACCO'
+    },
+
+    subtitle: {
+        text: 'Source map: <a href="http://code.highcharts.com/mapdata/custom/world.js">World, Miller projection, medium resolution</a>'
+    },
+
+    mapNavigation: {
+        enabled: true,
+        buttonOptions: {
+            verticalAlign: 'bottom'
+        }
+    },
+
+    colorAxis: {
+        min: 0
+    },
+
+    series: [{
+        data: myList,
+        name: 'FEMALE DATA',
+nullcolor:'black',
+        states: {
+            hover: {
+                color: '#BADA55'
+            }
+        },
+        dataLabels: {
+            enabled: true,
+            format: '{point.name}'
+        }
+    }]
+});
+
+});
+
+
+
+</script>
+</head>
+<body>
+<div id="container"></div>
+</body>
+</html>
+
